@@ -5,6 +5,26 @@ class MemoApp
     @current_directory_files = Dir.glob("*.csv")
   end
 
+  def run
+    loop do
+      puts "1 → 新規でメモを作成する / 2 → 既存のメモを編集する"
+      memo_type = gets.to_i
+
+      case memo_type
+      when 1
+        write_new_memo
+        break
+      when 2
+        edit_existing_memo
+        break
+      else
+        puts "1か2を入力してください。"
+      end
+    end
+  end
+
+  private
+
   def get_file_name
     puts "ファイル名を入力してください (拡張子を除く):"
     gets.chomp + ".csv"
@@ -58,26 +78,7 @@ class MemoApp
       exit
     end
   end
-
-  def run
-    loop do
-      puts "1 → 新規でメモを作成する / 2 → 既存のメモを編集する"
-      memo_type = gets.to_i
-
-      case memo_type
-      when 1
-        write_new_memo
-        break
-      when 2
-        edit_existing_memo
-        break
-      else
-        puts "1か2を入力してください。"
-      end
-    end
-  end
 end
 
-# アプリケーションの実行
 memo_app = MemoApp.new
 memo_app.run
